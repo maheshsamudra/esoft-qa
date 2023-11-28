@@ -7,7 +7,7 @@ const Title = () => {
     <div className={"text-center"}>
       <h1 className={"text-xl"}>ESOFT Knowledge base</h1>
       <hr className={"dark:border-gray-700 my-3"} />
-      <p className={"mb-10"}>Showing answers to {qa.length} questions</p>
+      <p className={"mb-10"}>Total: {qa.length} questions</p>
     </div>
   );
 };

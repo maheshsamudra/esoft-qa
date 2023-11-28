@@ -5,6 +5,7 @@ import Tags from "../components/tags";
 import Results from "../components/results";
 import { getAllPosts } from "../api";
 import useQaStore from "../stores/useQaStore";
+import Search from "../components/search";
 
 export default function Home({ qa }) {
   const setQa = useQaStore((state) => state.setQa);
@@ -13,8 +14,9 @@ export default function Home({ qa }) {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4">
-      <div className={"max-w-[640px]"}>
+      <div className={"w-full max-w-[640px]"}>
         <Title />
+        <Search />
         <Categories />
         <Tags />
         <Results />
