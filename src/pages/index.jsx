@@ -26,7 +26,13 @@ export default function Home({ qa }) {
 }
 
 export async function getStaticProps() {
-  const qa = getAllPosts(["question", "category", "verified", "content"]);
+  const qa = getAllPosts([
+    "question",
+    "category",
+    "verified",
+    "content",
+    "slug",
+  ]);
 
   return {
     props: { qa },

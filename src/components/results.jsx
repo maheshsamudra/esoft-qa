@@ -34,10 +34,10 @@ const Results = () => {
 
   if (!results?.length) {
     return (
-      <div className={"mt-5"}>
-        <p>No results found.</p>
+      <div>
+        <div className={"mt-[-33px] mb-[40px] w-[50%]"}>No results</div>
         {searchString || category ? (
-          <>
+          <div className={"text-center pt-10"}>
             <button
               type="button"
               onClick={() => {
@@ -48,7 +48,7 @@ const Results = () => {
             >
               Clear filters
             </button>
-          </>
+          </div>
         ) : null}
       </div>
     );
@@ -56,15 +56,59 @@ const Results = () => {
 
   return (
     <div>
+      <div className={"mt-[-33px] mb-[40px]  w-[50%]"}>
+        <span className={"hidden md:inline"}>Showing </span>
+        {results.length} / {qa.length} questions
+      </div>
       {results.map((qa, idx) => {
-        const { question, content, link } = qa;
+        const { question, content, slug } = qa;
         return (
           <div key={idx}>
             <div className="my-6 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <h5 className="mb-2 text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
                 {question}
               </h5>
-              <ReactMarkdown children={content} />
+              <ReactMarkdown
+                children={content}
+                components={{
+                  a: (props) => (
+                    <a href={props.href} target={"_blank"} className={"inline"}>
+                      {props.children}
+                      <svg
+                        className="w-3 h-3 text-gray-800 dark:text-white inline mx-1 relative mt-[-4px]"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 18 18"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"
+                        />
+                      </svg>
+                    </a>
+                  ),
+                }}
+              />
+              <hr className={"dark:border-gray-600 my-3"} />
+
+              <small className={"text-xs opacity-50"}>
+                Ref:{" "}
+                <span
+                  onClick={() => {
+                    try {
+                      navigator.clipboard.writeText(slug);
+                    } catch (e) {
+                      console.log("failed to copy to clipboard", e);
+                    }
+                  }}
+                >
+                  {slug}
+                </span>
+              </small>
             </div>
           </div>
         );
